@@ -13,6 +13,7 @@ import {
 } from "./chain";
 import type { APIResponse, Config, Draw, HistoryResponse } from "./types";
 import { explorerURL, Transactions } from "./Transactions";
+import { Help } from "./Help";
 import "./style.css";
 const short = (s: string | null) =>
   s ? `${s.slice(0, 6)}…${s.slice(-4)}` : "—";
@@ -510,6 +511,9 @@ function App() {
               <br />
               Enter with 10 USD8 and let chance do the rest.
             </p>
+            <a className="help-shortcut" href="#help">
+              Need help? Common questions / 常见问题 →
+            </a>
           </div>
           <div className="intro-stamp">
             <span>EVERY TICKET</span>
@@ -978,6 +982,7 @@ function App() {
             </button>
           )}
         </section>
+        <Help />
         {config && <Transactions config={config} account={account} />}
       </main>
       <footer>

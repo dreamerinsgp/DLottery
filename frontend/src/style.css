@@ -863,8 +863,64 @@ footer > span {
     font-size: 8px;
   }
 }
+.help,
 .transactions {
   margin-top: 24px;
+}
+.help {
+  scroll-margin-top: 20px;
+}
+.help-heading,
+.help-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.help-languages {
+  display: flex;
+  gap: 8px;
+}
+.help-languages button {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #101722;
+  color: var(--muted);
+}
+.help-languages button[aria-pressed="true"] {
+  background: var(--lime);
+  color: #101722;
+}
+.help-intro,
+.help-questions p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.help-questions details {
+  border-top: 1px solid var(--line);
+}
+.help-questions summary {
+  padding: 18px 4px;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.help-questions summary::marker {
+  color: var(--lime);
+}
+.help-questions p {
+  margin: 0 4px 20px;
+  max-width: 85ch;
+}
+.help-links {
+  margin-top: 20px;
+}
+.help-shortcut,
+.help-links a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  line-height: 1.7;
 }
 .transactions p {
   color: var(--muted);

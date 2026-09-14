@@ -56,6 +56,8 @@ Public chain time cannot be advanced by the demo tools, and randomness cannot be
 
 ## Troubleshooting
 
+The website includes **Help & common questions**, reachable through **Need help?** near the top of the page. Expand a question for guidance on wallets, test assets, demo participants, draw timing, prizes/refunds and transactions. Use **English / 中文** to switch the help language; the rest of the interface remains English. Help is available without a wallet or a working API connection. Demo wallets must be prepared separately; the help section does not create or fund participants.
+
 | Symptom                               | Check                                                                                                                                       |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | Buy button unavailable                | Wallet connected, active round, remaining time, fewer than five buyers, and no ticket already owned by that wallet                          |
