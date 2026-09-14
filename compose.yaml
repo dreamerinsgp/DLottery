@@ -1,0 +1,71 @@
+# Local assessment stack. Public deployments use a real USD8 token and VRF provider.
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: dlottery
+      POSTGRES_PASSWORD: local-demo-only
+      POSTGRES_DB: dlottery
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U dlottery -d dlottery"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  chain:
+    build:
+      context: .
+      dockerfile: deploy/contracts.Dockerfile
+    ports: ["127.0.0.1:8545:8545"]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8545',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_chainId',params:[]})}).then(r=>r.json()).then(r=>process.exit(r.result==='0x7a69'?0:1)).catch(()=>process.exit(1))"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  deployer:
+    build:
+      context: .
+      dockerfile: deploy/contracts.Dockerfile
+    command: [npx, hardhat, run, --no-compile, scripts/deploy.cjs, --network, localhost]
+    environment:
+      RPC_HTTP_URL: http://chain:8545
+      DEPLOYMENT_FILE: /runtime/deployment.json
+    volumes:
+      - deployment:/runtime
+    depends_on:
+      chain: {condition: service_healthy}
+  backend:
+    build:
+      context: .
+      dockerfile: deploy/backend.Dockerfile
+    environment:
+      RPC_HTTP_URL: http://chain:8545
+      DATABASE_URL: postgres://dlottery:local-demo-only@db:5432/dlottery?sslmode=disable
+      DEPLOYMENT_FILE: /runtime/deployment.json
+      CONFIRMATIONS: "0"
+      POLL_INTERVAL_MS: "1000"
+      PORT: "8081"
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+    volumes:
+      - deployment:/runtime:ro
+    ports: ["127.0.0.1:8081:8081"]
+    depends_on:
+      db: {condition: service_healthy}
+      deployer: {condition: service_completed_successfully}
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, dlottery, healthcheck]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  frontend:
+    build:
+      context: .
+      dockerfile: deploy/frontend.Dockerfile
+    ports: ["127.0.0.1:8080:80"]
+    depends_on:
+      backend: {condition: service_healthy}
+volumes:
+  database:
+  deployment:

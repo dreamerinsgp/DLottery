@@ -1,0 +1,223 @@
+{
+  "deployment": {
+    "chainId": "11155111",
+    "lotteryAddress": "0x670A8C7D4844D23960fFf8F3841a47AAD559dC7d",
+    "tokenAddress": "0x5A3580AC7b927554AA5Ff38B61C91A9078ee496e",
+    "tokenDecimals": 8,
+    "daoAddress": "0x63d50331c568cE20eecA55fc5AA3E33c0bEC62FB",
+    "randomnessProvider": "0x497602A403815dE3415D410170Fd35e58fD64db5",
+    "deploymentBlock": 11701601,
+    "minimumParticipants": 2,
+    "localMock": false,
+    "testToken": true,
+    "vrfSubscriptionId": "34892855678778204017201078970598779801487082021592630858904837758082757744851",
+    "vrfNativePayment": true
+  },
+  "deploymentTransactions": {
+    "createSubscription": {
+      "hash": "0xffd5654fb4e9f6f984ddd66df7dac82937e7320a82d94808e310651b30bc13a9",
+      "blockNumber": 11701597
+    },
+    "fundSubscription": {
+      "hash": "0x6340f0350946917dad9bcd59d0a323863883e2132537a8c6f1fa8367fa99dab5",
+      "blockNumber": 11701598
+    },
+    "deployMockUSD8": {
+      "hash": "0xb31411ae890666283617b5752e112781c7ea1ff5f525ff11ce38b0682f27d3a3",
+      "blockNumber": 11701599
+    },
+    "deployVRFProvider": {
+      "hash": "0xb25465ae26be0eb10dfefd70b1d78e97f75d5ce3011f640b134e250829b463f3",
+      "blockNumber": 11701600
+    },
+    "deployDLottery": {
+      "hash": "0xd7aec6a5af6570c18ad55e513b3d7ee07e9ab0733996c9f8f96605327a67a8cf",
+      "blockNumber": 11701601
+    },
+    "bindLottery": {
+      "hash": "0x41ce05f58f26c0991e91f64f08d8fd76d30d439b87127987a3c1ec0960a9b4e7",
+      "blockNumber": 11701602
+    },
+    "addConsumer": {
+      "hash": "0xba0f7fa8d900b9b81e0008a755fc2a1a64b67fa6423358e4a785e38385b1d013",
+      "blockNumber": 11701603
+    },
+    "startDraw": {
+      "hash": "0x3e25bf2b911b163dacc76487200530c20c02789740089213d96dd77aab81cfa3",
+      "blockNumber": 11701604
+    },
+    "mintDeployer": {
+      "hash": "0x0c60044fb807bed8dbea883679cbbe2bf3ff4b656b9813c024f8ff741cf34407",
+      "blockNumber": 11701605
+    },
+    "topUpVRF": {
+      "hash": "0xd127bea7c0d325147140fb267d437f9630c9524cf2369a41b201d69df20f3215",
+      "blockNumber": 11701688
+    }
+  },
+  "demoTransactions": {
+    "fund1": {
+      "hash": "0x8dd7f0e360d747702be6ccd3931d1caa9c2cee2f6af3ead7d876bb73b6cd53e8",
+      "blockNumber": 11701658
+    },
+    "fund2": {
+      "hash": "0xfa7cb0ec873cfa7a08410102c4cbd824f1946f9cb0156dabb50918603dc37ebc",
+      "blockNumber": 11701659
+    },
+    "fund3": {
+      "hash": "0x2e29736e77030ea983d572647b4174f709d9de77670b05eb223f94c3dc70bc86",
+      "blockNumber": 11701660
+    },
+    "fund4": {
+      "hash": "0x5400459e1168f52663b104ff43cd2d46241ca7c285ef41c9706c3d933a9da6e9",
+      "blockNumber": 11701670
+    },
+    "approve1-0": {
+      "hash": "0x5f91a12c1e6453b8ee3407487a3768f7694d2f0a7a1acff8ca9995d4d63bbb0d",
+      "blockNumber": 11701671
+    },
+    "mint1": {
+      "hash": "0x8b677ead379a702c6b8ebc9cc3b9750e80606e8eafd9d5d2da3e9abfaa25c532",
+      "blockNumber": 11701671
+    },
+    "mint2": {
+      "hash": "0x9960d69b0c88d0a03be910a96c0a2cc22947ece76926e5b8237e9cd521b7e181",
+      "blockNumber": 11701671
+    },
+    "mint3": {
+      "hash": "0xa1d60b9e469691d6c976c2947fb09637bea67a0c679b640522b9abfa10b4b370",
+      "blockNumber": 11701671
+    },
+    "mint4": {
+      "hash": "0xf46d0bf4ed18681143a9def62d15636474d5b83215a036c7827af05726d236a9",
+      "blockNumber": 11701671
+    },
+    "buy1-0": {
+      "hash": "0x9039925bd145167c1b376a6373b207ec982f40e0b0ccd45b5979d1857c163541",
+      "blockNumber": 11701672
+    },
+    "approve1-1": {
+      "hash": "0xc98f79c82c5758aebacb63c6ef7b73948df5156991258dee694538054cb2477b",
+      "blockNumber": 11701672
+    },
+    "approve1-2": {
+      "hash": "0x6ad94f136fa82be60379558c667413939bc96cefc8ebc7c0e76a6a85ca625da5",
+      "blockNumber": 11701672
+    },
+    "approve1-3": {
+      "hash": "0xb5039c2a6286ba5369951c02fa3e243421f3a270dd04bccea1757bcfaafeddb1",
+      "blockNumber": 11701672
+    },
+    "approve1-4": {
+      "hash": "0x6c037f83499e04077dc300a40153bfd799aab5cb869fd7be51f0f85eda092e74",
+      "blockNumber": 11701672
+    },
+    "buy1-1": {
+      "hash": "0x8aea4e413e74e544e1b3ec8b5887a0e4d5b6ed0a88d892d089d9f61028e89c11",
+      "blockNumber": 11701673
+    },
+    "buy1-2": {
+      "hash": "0xf8325292d32677bdf264e7d24d24cc05f83f6470c82dc5ed4742a254eeed1d97",
+      "blockNumber": 11701673
+    },
+    "buy1-3": {
+      "hash": "0x35ddc8debd55e46a25156a3ed5c26d5cfd79282bd949fe3acaf36cf0cfd1a5ea",
+      "blockNumber": 11701673
+    },
+    "buy1-4": {
+      "hash": "0xc0292c4d33f7a5dbd676c881f43ec1aed7053c35a10cfa41c9e3da92141c3f5b",
+      "blockNumber": 11701673
+    },
+    "performDraw1": {
+      "hash": "0x5d82c1a5506107c8e521cc5ae7cdd118b455c8b2f83d0830b2aaf85aea6fec0d",
+      "blockNumber": 11701674
+    },
+    "startDraw2": {
+      "hash": "0x4dd0dbb5f92d1b3e30f76e9c194db53d52436657f3a59f05164221f845449ffa",
+      "blockNumber": 11701691
+    },
+    "approve2-0": {
+      "hash": "0x45ea28314a63883fe7cd4a50fcb5d7f5b9011fd78829a502eceec79315af1c5d",
+      "blockNumber": 11701692
+    },
+    "approve2-1": {
+      "hash": "0xe6cbff56de01477ac418c1cdb9ed2fc9cd1acdccc098fb46a294ced08babce2e",
+      "blockNumber": 11701692
+    },
+    "approve2-2": {
+      "hash": "0x9354af34eae6ba818fa21d8eccffc1da078fb4f5150c492d95e1810ec5ab0efa",
+      "blockNumber": 11701692
+    },
+    "approve2-3": {
+      "hash": "0x1e9c78d1aa4e2656c534dda3bc8844af6486558fcc7dc1e5a7896c1902152e56",
+      "blockNumber": 11701692
+    },
+    "buy2-0": {
+      "hash": "0xf8058a4c52f63e8cedc1f7af84598358590c69eba5a1051a1b704615095ba590",
+      "blockNumber": 11701693
+    },
+    "buy2-1": {
+      "hash": "0xcbc8ae26f81f4e6047c67c155eb252020753206db47cd0b219e8870d1bcc0ac5",
+      "blockNumber": 11701693
+    },
+    "buy2-2": {
+      "hash": "0x27c1af38261270bc2b5b0e141fbf0a0d5f763d5e3391ae43714ddaac4d16a006",
+      "blockNumber": 11701693
+    },
+    "buy2-3": {
+      "hash": "0x5c6e56535539ad598bb818c84f20f643f580b24f09b152d850f8e692e7c280f9",
+      "blockNumber": 11701693
+    }
+  },
+  "firstDraw": {
+    "status": 4,
+    "luckyNumber": 9,
+    "winner": "0x0000000000000000000000000000000000000000",
+    "requestId": "108016513560524766867800421395171074107465375424444920290463200709563722667533"
+  },
+  "verification": {
+    "MockUSD8": {
+      "match": "exact_match",
+      "creationMatch": "exact_match",
+      "runtimeMatch": "exact_match",
+      "chainId": "11155111",
+      "address": "0x5A3580AC7b927554AA5Ff38B61C91A9078ee496e",
+      "verifiedAt": "2026-09-14T08:02:30Z",
+      "matchId": "50978643"
+    },
+    "VRFProvider": {
+      "match": "exact_match",
+      "creationMatch": "exact_match",
+      "runtimeMatch": "exact_match",
+      "chainId": "11155111",
+      "address": "0x497602A403815dE3415D410170Fd35e58fD64db5",
+      "verifiedAt": "2026-09-14T08:03:46Z",
+      "matchId": "50978703"
+    },
+    "DLottery": {
+      "match": "exact_match",
+      "creationMatch": "exact_match",
+      "runtimeMatch": "exact_match",
+      "chainId": "11155111",
+      "address": "0x670A8C7D4844D23960fFf8F3841a47AAD559dC7d",
+      "verifiedAt": "2026-09-14T08:03:48Z",
+      "matchId": "50978704"
+    }
+  },
+  "fulfillmentTransactions": [
+    "0xde9587613b44ff2904aaeb4d33dab70c8189d832c399efc72cbf93190cf036da"
+  ],
+  "checkedAt": "2026-09-14T08:23:09.167Z",
+  "examinerRound": {
+    "id": "2",
+    "participants": 4,
+    "pool": "9000000000",
+    "deadline": "2026-09-15T08:21:00.000Z"
+  },
+  "browser": {
+    "faucetTransaction": "0x2110713a156990e955ae53f5b795c5afa5d7986130130dcb07941e96490e53af",
+    "wallet": "0x137ccd669494d324AF7901c2c48491E01655C2a3",
+    "tokensMinted": "1000",
+    "pageErrors": []
+  }
+}

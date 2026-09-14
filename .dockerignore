@@ -1,0 +1,14 @@
+.git
+node_modules
+.local
+**/node_modules
+**/dist
+**/cache
+**/artifacts
+**/*.tsbuildinfo
+.env
+.env.*
+shared/deployment.json
+playwright-report
+test-results
+docs/*.png

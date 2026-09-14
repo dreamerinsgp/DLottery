@@ -1,0 +1,730 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DLottery query API",
+    "version": "1.0.0",
+    "description": "Read-only canonical blockchain projections. Writes happen directly through the EVM wallet. Monetary values and uint256 IDs are base-unit decimal strings; timestamps are UTC epoch seconds. Current/history responses identify the indexed snapshot. Errors include X-Request-ID."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8081"
+    }
+  ],
+  "paths": {
+    "/api/v1/config": {
+      "get": {
+        "summary": "Read verified deployment configuration",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Config"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Database/indexer temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draws/current": {
+      "get": {
+        "summary": "Read the latest started draw; draw is null before the first round",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Database/indexer temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draws/history": {
+      "get": {
+        "summary": "Read outcome-finalized rounds in descending draw ID order",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]+$",
+              "description": "Unsigned integer decimal string in token base units; never a floating point number."
+            },
+            "description": "Exclusive draw ID boundary returned as nextCursor."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Database/indexer temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draws/{id}": {
+      "get": {
+        "summary": "Read a historical or current draw, including ticket/refund state",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]+$",
+              "description": "Unsigned integer decimal string in token base units; never a floating point number."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Database/indexer temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown draw",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "summary": "HTTP process liveness",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "summary": "Database access and indexer synchronization readiness",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Readiness"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Readiness"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Prometheus-format indexing counters and gauges",
+        "responses": {
+          "200": {
+            "description": "Metric samples",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ticket": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "wallet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "refunded": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "number",
+          "wallet",
+          "refunded"
+        ]
+      },
+      "Draw": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "DRAWING",
+              "WINNER_DECLARED",
+              "COMPLETED",
+              "NO_WINNER",
+              "CANCELLED"
+            ]
+          },
+          "startTime": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deadline": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "finalizedAt": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ticketPrice": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "minimumParticipants": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "participantCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "luckyNumber": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "winner": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pool": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "inheritedRollover": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "rollover": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "daoFee": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "winnerPrize": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "prizeClaimed": {
+            "type": "boolean"
+          },
+          "daoFeePaid": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "requestId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]+$",
+                "description": "Unsigned integer decimal string in token base units; never a floating point number."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tickets": {
+            "type": "array",
+            "minItems": 10,
+            "maxItems": 10,
+            "items": {
+              "$ref": "#/components/schemas/Ticket"
+            }
+          },
+          "remainingSeconds": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "canPerformDraw": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "startTime",
+          "deadline",
+          "finalizedAt",
+          "ticketPrice",
+          "minimumParticipants",
+          "participantCount",
+          "luckyNumber",
+          "winner",
+          "pool",
+          "inheritedRollover",
+          "rollover",
+          "daoFee",
+          "winnerPrize",
+          "prizeClaimed",
+          "daoFeePaid",
+          "requestId",
+          "tickets",
+          "remainingSeconds",
+          "canPerformDraw"
+        ]
+      },
+      "Sync": {
+        "type": "object",
+        "properties": {
+          "observedHead": {
+            "type": "integer"
+          },
+          "safeHead": {
+            "type": "integer"
+          },
+          "indexedBlock": {
+            "type": "integer"
+          },
+          "recovering": {
+            "type": "boolean"
+          },
+          "synced": {
+            "type": "boolean"
+          },
+          "lastSuccess": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "failures": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reorgs": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "observedHead",
+          "safeHead",
+          "indexedBlock",
+          "recovering",
+          "synced",
+          "lastSuccess",
+          "failures",
+          "reorgs"
+        ]
+      },
+      "Config": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "lotteryAddress": {
+            "type": "string"
+          },
+          "tokenAddress": {
+            "type": "string"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "daoAddress": {
+            "type": "string"
+          },
+          "randomnessProvider": {
+            "type": "string"
+          },
+          "deploymentBlock": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "confirmations": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "chainId",
+          "lotteryAddress",
+          "tokenAddress",
+          "tokenDecimals",
+          "daoAddress",
+          "randomnessProvider",
+          "deploymentBlock",
+          "confirmations"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message",
+              "requestId"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "CurrentResponse": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "lotteryAddress": {
+            "type": "string"
+          },
+          "tokenAddress": {
+            "type": "string"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "indexedBlock": {
+            "type": "integer"
+          },
+          "indexedBlockHash": {
+            "type": "string"
+          },
+          "chainTime": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "observedHead": {
+            "type": "integer"
+          },
+          "synced": {
+            "type": "boolean"
+          },
+          "sync": {
+            "$ref": "#/components/schemas/Sync"
+          },
+          "draw": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Draw"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "chainId",
+          "lotteryAddress",
+          "tokenAddress",
+          "tokenDecimals",
+          "indexedBlock",
+          "indexedBlockHash",
+          "chainTime",
+          "observedHead",
+          "synced",
+          "sync",
+          "draw"
+        ]
+      },
+      "HistoryResponse": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "type": "string",
+            "pattern": "^[0-9]+$",
+            "description": "Unsigned integer decimal string in token base units; never a floating point number."
+          },
+          "lotteryAddress": {
+            "type": "string"
+          },
+          "tokenAddress": {
+            "type": "string"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "indexedBlock": {
+            "type": "integer"
+          },
+          "indexedBlockHash": {
+            "type": "string"
+          },
+          "chainTime": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "observedHead": {
+            "type": "integer"
+          },
+          "synced": {
+            "type": "boolean"
+          },
+          "sync": {
+            "$ref": "#/components/schemas/Sync"
+          },
+          "draws": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Draw"
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]+$",
+                "description": "Unsigned integer decimal string in token base units; never a floating point number."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "chainId",
+          "lotteryAddress",
+          "tokenAddress",
+          "tokenDecimals",
+          "indexedBlock",
+          "indexedBlockHash",
+          "chainTime",
+          "observedHead",
+          "synced",
+          "sync",
+          "draws",
+          "nextCursor"
+        ]
+      },
+      "Health": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ]
+      },
+      "Readiness": {
+        "type": "object",
+        "properties": {
+          "ready": {
+            "type": "boolean"
+          },
+          "sync": {
+            "$ref": "#/components/schemas/Sync"
+          }
+        },
+        "required": [
+          "ready",
+          "sync"
+        ]
+      }
+    }
+  }
+}

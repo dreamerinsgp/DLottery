@@ -1,0 +1,36 @@
+{
+  "name": "dlottery",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "contracts",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run compile -w contracts && npm run export -w contracts && npm run build -w frontend",
+    "test": "npm run test -w contracts && npm run test:backend",
+    "test:e2e": "node scripts/e2e.mjs",
+    "test:browser": "node scripts/browser.mjs",
+    "dev": "npm run dev -w frontend",
+    "chain": "npm run node -w contracts",
+    "deploy:local": "npm run deploy:local -w contracts",
+    "demo": "node scripts/local.mjs",
+    "check": "npm run build && npm test",
+    "test:backend": "node scripts/test-backend.mjs",
+    "verify": "node scripts/verify.mjs",
+    "demo:fill": "node scripts/round.mjs fill",
+    "demo:draw": "node scripts/round.mjs draw",
+    "format": "prettier --write frontend/src frontend/e2e contracts/scripts contracts/test scripts playwright.config.ts frontend/vite.config.ts",
+    "format:check": "prettier --check frontend/src frontend/e2e contracts/scripts contracts/test scripts playwright.config.ts frontend/vite.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "prettier": "3.8.1"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "optionalDependencies": {
+    "@embedded-postgres/linux-x64": "18.4.0-beta.17"
+  }
+}
