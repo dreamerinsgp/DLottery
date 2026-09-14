@@ -12,6 +12,7 @@ import {
   walletContracts,
 } from "./chain";
 import type { APIResponse, Config, Draw, HistoryResponse } from "./types";
+import { explorerURL, Transactions } from "./Transactions";
 import "./style.css";
 const short = (s: string | null) =>
   s ? `${s.slice(0, 6)}…${s.slice(-4)}` : "—";
@@ -403,6 +404,7 @@ function App() {
       ));
   const wrongChain = !!account && !!config && walletChain !== config.chainId;
   const syncing = !sync?.synced || receiptBlock > (sync?.indexedBlock ?? -1);
+  const explorer = explorerURL(config?.chainId);
   return (
     <div className="app">
       <header className="topbar">
@@ -415,6 +417,7 @@ function App() {
         <nav>
           <a href="#how">How it works</a>
           <a href="#history">Past draws</a>
+          {explorer && <a href="#transactions">Transactions</a>}
         </nav>
         <div className="wallet-control">
           <button
@@ -549,6 +552,15 @@ function App() {
           {txHash && (
             <div className="tx-line">
               Transaction <code title={txHash}>{txHash}</code>
+              {explorer && (
+                <a
+                  href={`${explorer}/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on Etherscan ↗
+                </a>
+              )}
               {syncing && !busy ? " · Confirmed; history is synchronizing" : ""}
             </div>
           )}
@@ -966,6 +978,7 @@ function App() {
             </button>
           )}
         </section>
+        {config && <Transactions config={config} account={account} />}
       </main>
       <footer>
         <a className="brand" href="/">

@@ -35,6 +35,14 @@ Live state changes. The original four-player round 2 was only a dated snapshot; 
 
 The deployment wallet `0x63d5…62FB` participated in the initial demonstration. If using that wallet, inspect its participation in the current round before attempting another purchase. Participation restrictions reset for each new round.
 
+## Check transactions
+
+- After submitting an action, click **View on Etherscan** beside its transaction hash. This link appears while confirmation is pending and updates if the wallet speeds up the transaction successfully.
+- Open **Transactions / Check transactions** near the bottom of the page. Paste a Sepolia transaction hash (0x followed by 64 hexadecimal characters) and click **Open transaction** to inspect it on Etherscan without connecting a wallet.
+- **Lottery contract activity** shows transactions involving the lottery; **USD8 token transfers** shows token activity. Connect a wallet to use **My wallet activity**, which includes that wallet's activity beyond DLottery.
+- Check Etherscan for status, sender, gas fees and token transfers. Approval and ticket purchase have different hashes. The app displays the latest submitted hash; use wallet activity to find earlier transactions. A VRF request and its later fulfillment are also separate transactions. Very recent transactions may not appear immediately.
+- Explorer links are available for the Sepolia deployment only; the local demo has no public explorer.
+
 ## Draw, prize and refund
 
 - At **five participants**, anyone with a connected wallet and gas can click **Perform lottery draw** immediately. Otherwise wait until the round's **24-hour deadline**. The minimum quorum is **two**; two buyers alone do not enable an early draw.

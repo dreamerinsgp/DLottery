@@ -863,6 +863,54 @@ footer > span {
     font-size: 8px;
   }
 }
+.transactions {
+  margin-top: 24px;
+}
+.transactions p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.explorer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px 0;
+}
+.explorer-links a,
+.tx-line a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tx-line a {
+  display: inline-block;
+  margin-left: 8px;
+}
+.transaction-lookup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+.transaction-lookup input {
+  flex: 1 1 260px;
+  min-width: 0;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #101722;
+  color: inherit;
+  font: inherit;
+}
+.transaction-lookup input:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
+.transaction-lookup .secondary {
+  width: auto;
+  margin: 0;
+}
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto !important;
