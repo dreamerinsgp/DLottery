@@ -1,8 +1,12 @@
 # DLottery
 
+[English](README.md) | [简体中文](README.zh-CN.md) | [Documentation / 文档目录](docs/README.md)
+
 An EVM lottery MVP with Solidity contracts, a passive Go/PostgreSQL indexer and REST API, and a React wallet application. Implements the [assessment PRD](docs/PRD.md): 10 USD8 tickets, five participants, one ticket per wallet, ten possible lucky numbers, 24-hour rounds, quorum cancellation, refunds, rollover, and a 5% DAO fee on winner net profit.
 
 **Live Sepolia assessment:** [Open DLottery](https://frontend-production-216bb.up.railway.app). See [examiner instructions and deployment details](docs/sepolia-assessment.md). The demo uses mintable test USD8 and real Chainlink VRF.
+
+**For examiners:** start with the [English review guide](docs/examiner-guide.md) or [中文评审指南](docs/examiner-guide.zh-CN.md). The [documentation index](docs/README.md) contains paired English/Chinese technical documents, evidence, a submission message, and a recording script.
 
 ## Run the local application
 
@@ -58,28 +62,28 @@ On minimal Linux systems, `npx playwright install --with-deps chromium` installs
 
 Individual checks:
 
-| Command | What it checks |
-| --- | --- |
-| `npm run build` | Contract compile, shared ABI export, TypeScript and frontend production build |
-| `npm test` | Contract suite and real PostgreSQL-backed Go tests |
-| `npm run test:backend` | Starts an isolated local database and runs Go tests with `-race`; honors `TEST_DATABASE_URL` |
-| `npm run test:e2e` | Real local transactions, all result branches, reorg rollback and pagination against a running fresh demo |
-| `npm run test:browser` | Wallet UI flow against a running demo with an empty active round |
-| `cd backend && go vet ./...` | Go static checks |
+| Command                      | What it checks                                                                                           |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `npm run build`              | Contract compile, shared ABI export, TypeScript and frontend production build                            |
+| `npm test`                   | Contract suite and real PostgreSQL-backed Go tests                                                       |
+| `npm run test:backend`       | Starts an isolated local database and runs Go tests with `-race`; honors `TEST_DATABASE_URL`             |
+| `npm run test:e2e`           | Real local transactions, all result branches, reorg rollback and pagination against a running fresh demo |
+| `npm run test:browser`       | Wallet UI flow against a running demo with an empty active round                                         |
+| `cd backend && go vet ./...` | Go static checks                                                                                         |
 
 For non-Linux hosts, supply `TEST_DATABASE_URL` to a disposable PostgreSQL database for backend tests. The full automatic `verify`/`demo` stack helper currently targets Linux x64; the app services themselves are containerized. Never point test fixtures at a production database.
 
 ## Project layout
 
-| Directory | Responsibility |
-| --- | --- |
+| Directory    | Responsibility                                                                    |
+| ------------ | --------------------------------------------------------------------------------- |
 | `contracts/` | DLottery, immutable-coordinator VRF adapter, local fixtures, tests and deployment |
-| `backend/` | Go RPC scanner, SQL projections, rollback/replay and REST service |
-| `frontend/` | React/TypeScript wallet UI and browser tests |
-| `shared/` | Exported contract ABIs; generated deployment manifest is ignored by Git |
-| `deploy/` | Dockerfiles, nginx and environment templates |
-| `scripts/` | Local setup, deterministic demos and full-stack verification |
-| `docs/` | PRD, architecture, OpenAPI, operational instructions and validation evidence |
+| `backend/`   | Go RPC scanner, SQL projections, rollback/replay and REST service                 |
+| `frontend/`  | React/TypeScript wallet UI and browser tests                                      |
+| `shared/`    | Exported contract ABIs; generated deployment manifest is ignored by Git           |
+| `deploy/`    | Dockerfiles, nginx and environment templates                                      |
+| `scripts/`   | Local setup, deterministic demos and full-stack verification                      |
+| `docs/`      | PRD, architecture, OpenAPI, operational instructions and validation evidence      |
 
 ## API
 

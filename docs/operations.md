@@ -1,5 +1,9 @@
 # Running and operating DLottery
 
+[English](operations.md) | [简体中文](operations.zh-CN.md) | [Documentation](README.md)
+
+For the existing Railway/Sepolia instance, see the [deployment record](sepolia-assessment.md). The commands below also cover creating a separate local stack or a new public deployment.
+
 ## Local development
 
 The simplest setup is `npm ci && npm run demo` from the repository root. The helper requires Linux x64 and Go/Node, uses loopback-only services, and does not require a system PostgreSQL installation. The optional bundled PostgreSQL distribution is test tooling, not the production database image.
@@ -32,20 +36,20 @@ The backend runs as an unprivileged user and exposes built-in `/healthz` and `/r
 
 ## Configuration
 
-| Variable | Use |
-| --- | --- |
-| `DEPLOYMENT_FILE` | JSON manifest; default `../shared/deployment.json` when running from `backend/` |
-| `CHAIN_ID`, `LOTTERY_ADDRESS`, `DEPLOYMENT_BLOCK` | Override manifest identity/start block |
-| `RPC_HTTP_URL` | Backend/deployment RPC endpoint; keep any API key server-side |
-| `DATABASE_URL` | Required PostgreSQL DSN; enable appropriate TLS for a remote database |
-| `CONFIRMATIONS` | Backend block buffer; default 2, local fixture 0; public value must be chosen for the chain |
-| `POLL_INTERVAL_MS` | 50–30000 milliseconds; default 2000 |
-| `PORT` | HTTP listen port; default 8081 |
-| `CORS_ORIGINS` | Comma-separated exact browser origins |
-| `VITE_RPC_URL` | Public browser RPC URL; build-time setting |
-| `VITE_API_URL` | Optional browser API base; empty uses same-origin proxy |
-| `API_PROXY_TARGET` | Vite development proxy or nginx runtime upstream; Docker default `http://backend:8081`, Railway `http://backend.railway.internal:8081` |
-| `VITE_TEST_TOKEN_ADDRESS` | Optional build-time faucet address; enabled only for that exact mintable token on Sepolia |
+| Variable                                          | Use                                                                                                                                    |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `DEPLOYMENT_FILE`                                 | JSON manifest; default `../shared/deployment.json` when running from `backend/`                                                        |
+| `CHAIN_ID`, `LOTTERY_ADDRESS`, `DEPLOYMENT_BLOCK` | Override manifest identity/start block                                                                                                 |
+| `RPC_HTTP_URL`                                    | Backend/deployment RPC endpoint; keep any API key server-side                                                                          |
+| `DATABASE_URL`                                    | Required PostgreSQL DSN; enable appropriate TLS for a remote database                                                                  |
+| `CONFIRMATIONS`                                   | Backend block buffer; default 2, local fixture 0; public value must be chosen for the chain                                            |
+| `POLL_INTERVAL_MS`                                | 50–30000 milliseconds; default 2000                                                                                                    |
+| `PORT`                                            | HTTP listen port; default 8081                                                                                                         |
+| `CORS_ORIGINS`                                    | Comma-separated exact browser origins                                                                                                  |
+| `VITE_RPC_URL`                                    | Public browser RPC URL; build-time setting                                                                                             |
+| `VITE_API_URL`                                    | Optional browser API base; empty uses same-origin proxy                                                                                |
+| `API_PROXY_TARGET`                                | Vite development proxy or nginx runtime upstream; Docker default `http://backend:8081`, Railway `http://backend.railway.internal:8081` |
+| `VITE_TEST_TOKEN_ADDRESS`                         | Optional build-time faucet address; enabled only for that exact mintable token on Sepolia                                              |
 
 The backend checks RPC chain ID, lottery bytecode and token/provider/DAO configuration using the actual contract before serving. It does not trust token decimals supplied by a client. The private key variable is recognized only by the contract deployment toolchain.
 
@@ -68,19 +72,19 @@ No public deployment or funding is implied by running local tests. The repositor
 
 ## Failure recovery
 
-| Symptom | Action and expected behavior |
-| --- | --- |
-| RPC unavailable/rate limited | Inspect RPC connectivity and logs, restore the endpoint; the scanner retries with backoff from the same committed cursor |
-| Database unavailable | Restore connectivity; failed block transactions roll back and readiness reports unavailable |
-| A handler/ABI decoding error repeats | Compare deployed bytecode/ABI/manifest to this build; fix the mismatch before resuming. Never manually skip the failing height |
-| Indexer process crashes | Restart it; the previous block transaction either committed fully or did not commit, and replay is idempotent |
-| Reorg detected | Scanner automatically finds the ancestor and rebuilds canonical projections. Check `/readyz`, `/metrics` and backend logs until caught up |
-| Writer lock unavailable | Stop the duplicate backend for that deployment; one process owns the indexer lock. A dead lock connection requires restarting that process |
-| Transaction mined but history behind | Check the receipt and UI synchronization message; wait for confirmations/indexing rather than sending the same claim again |
-| VRF request pending | Check the original request, subscription funding and provider service; do not request new randomness |
-| Word stored but lottery not settled | Use `finalizeDraw(drawId)` / retry delivery in the UI; it delivers the stored word, not a new one |
-| Prize transfer fails | Check the supported token and DAO recipient; the entire claim reverted and remains claimable |
-| Only chain container restarted | Restart the complete local stack so contracts are redeployed; its chain state is ephemeral |
+| Symptom                              | Action and expected behavior                                                                                                               |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| RPC unavailable/rate limited         | Inspect RPC connectivity and logs, restore the endpoint; the scanner retries with backoff from the same committed cursor                   |
+| Database unavailable                 | Restore connectivity; failed block transactions roll back and readiness reports unavailable                                                |
+| A handler/ABI decoding error repeats | Compare deployed bytecode/ABI/manifest to this build; fix the mismatch before resuming. Never manually skip the failing height             |
+| Indexer process crashes              | Restart it; the previous block transaction either committed fully or did not commit, and replay is idempotent                              |
+| Reorg detected                       | Scanner automatically finds the ancestor and rebuilds canonical projections. Check `/readyz`, `/metrics` and backend logs until caught up  |
+| Writer lock unavailable              | Stop the duplicate backend for that deployment; one process owns the indexer lock. A dead lock connection requires restarting that process |
+| Transaction mined but history behind | Check the receipt and UI synchronization message; wait for confirmations/indexing rather than sending the same claim again                 |
+| VRF request pending                  | Check the original request, subscription funding and provider service; do not request new randomness                                       |
+| Word stored but lottery not settled  | Use `finalizeDraw(drawId)` / retry delivery in the UI; it delivers the stored word, not a new one                                          |
+| Prize transfer fails                 | Check the supported token and DAO recipient; the entire claim reverted and remains claimable                                               |
+| Only chain container restarted       | Restart the complete local stack so contracts are redeployed; its chain state is ephemeral                                                 |
 
 `GET /metrics` reports observed/indexed heights, lag, retry failures and reorgs. `GET /readyz` also reports the last successful scanner pass; readiness becomes false on recovery, lag or prolonged inability to scan. `/healthz` only proves the HTTP process is alive.
 

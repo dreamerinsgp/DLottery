@@ -1,5 +1,7 @@
 # Architecture and implementation decisions
 
+[English](architecture.md) | [简体中文](architecture.zh-CN.md) | [Documentation](README.md)
+
 The [PRD](PRD.md) controls business behavior. This repository adapts the lottery UI/domain ideas from the supplied Solana projects and the EVM wallet/indexing practices from `evm_consumer` and `bsc_prediction_market`. The implementation here is self-contained and does not import runtime code from those directories.
 
 ## Components and trust boundaries

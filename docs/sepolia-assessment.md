@@ -1,5 +1,9 @@
 # Sepolia assessment deployment
 
+[English](sepolia-assessment.md) | [简体中文](sepolia-assessment.zh-CN.md) | [Documentation](README.md)
+
+For the shortest walkthrough, use the [examiner guide](examiner-guide.md).
+
 Deployed on 2026-09-14. This assessment uses mintable test USD8 and actual Chainlink VRF v2.5, paid in Sepolia ETH.
 
 ## Examiner links
@@ -14,7 +18,7 @@ Viewing results requires no wallet. To participate, connect MetaMask on **Ethere
 
 At five participants, anyone can perform the draw immediately. Otherwise it becomes eligible after the 24-hour deadline. Chainlink fulfillment is asynchronous; wait for the result. A lucky number from 1–5 has a ticket owner in a full round, and 6–10 rolls the pool forward. A winner can claim their prize. Results remain visible in Past draws.
 
-At handoff, round **2** has **four participants**, a **90 USD8 pool** (50 rollover + 40 new tickets), and one ticket available. Its deadline is **2026-09-15 08:21 UTC / 16:21 China time**. Use a wallet that has not already entered this round to buy the fifth ticket and trigger an immediate draw. This is live public state and can change before the examiner visits. After the deadline, settle the existing round and start another.
+The initial validation snapshot at **2026-09-14 08:23 UTC** recorded round **2** with **four participants** and a **90 USD8 pool** (50 rollover + 40 new tickets). This is historical evidence, not a promise that a fifth ticket is still available. A later check on the same date found round **3** active with **0 participants** and **100 USD8 inherited rollover**; both prior rounds were recorded as `NO_WINNER` with lucky number 9. See the timestamped [API snapshot](review-snapshot.json). Always use the live round's status and deadline. If its deadline has passed, settle it and start another round when eligible.
 
 ## Confirmed validation
 
@@ -31,12 +35,12 @@ See [public deployment and transaction evidence](sepolia-evidence.json). Railway
 
 ## Contracts
 
-| Contract | Sepolia address |
-| --- | --- |
-| DLottery | `0x670A8C7D4844D23960fFf8F3841a47AAD559dC7d` |
+| Contract        | Sepolia address                              |
+| --------------- | -------------------------------------------- |
+| DLottery        | `0x670A8C7D4844D23960fFf8F3841a47AAD559dC7d` |
 | USD8 test token | `0x5A3580AC7b927554AA5Ff38B61C91A9078ee496e` |
-| VRF adapter | `0x497602A403815dE3415D410170Fd35e58fD64db5` |
-| DAO recipient | `0x63d50331c568cE20eecA55fc5AA3E33c0bEC62FB` |
+| VRF adapter     | `0x497602A403815dE3415D410170Fd35e58fD64db5` |
+| DAO recipient   | `0x63d50331c568cE20eecA55fc5AA3E33c0bEC62FB` |
 
 Deployment block: **11701601**. Token decimals: **8**. All three deployed contracts have exact creation/runtime matches on Sourcify:
 
@@ -47,7 +51,7 @@ Deployment block: **11701601**. Token decimals: **8**. All three deployed contra
 
 Etherscan's automatic source submission hit its daily quota; Sourcify verification succeeded.
 
-VRF subscription ID: `34892855678778204017201078970598779801487082021592630858904837758082757744851`. The registered consumer is the VRF adapter. Coordinator: `0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B`. Configuration: 3 request confirmations, 500,000 callback gas, native payment, 500 gwei gas lane. The subscription was funded with a total of 0.5 Sepolia ETH. Maintain enough reserve for future draws; [Chainlink's billing documentation](https://docs.chain.link/vrf/v2-5/billing) explains the maximum-cost reserve.
+VRF subscription ID: `34892855678778204017201078970598779801487082021592630858904837758082757744851`. The registered consumer is the VRF adapter. Coordinator: `0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B`. Configuration: 3 request confirmations, 500,000 callback gas, native payment, 500 gwei gas lane. The subscription was funded with a total of 0.5 Sepolia ETH; that is not a guarantee of its current balance. Maintain enough reserve for future draws; [Chainlink's billing documentation](https://docs.chain.link/vrf/v2-5/billing) explains the maximum-cost reserve.
 
 ## Railway configuration
 
@@ -75,4 +79,4 @@ Use the backend directory and `--service backend` for backend releases. The back
 - `.local/sepolia/source-verification.json`: source verification results.
 - `.local/sepolia/test-wallets.json`: private generated test wallets, owner-readable only; never publish.
 
-`node scripts/deploy-sepolia.mjs` deploys/resumes the assessment contracts using the local `.env` (`PRIVATE_KEY` or `DEPLOYER_PRIVATE_KEY`). Preserve its checkpoints to avoid an unintended new deployment. `node scripts/check-sepolia.mjs` resumes real testnet validation and prepares round 2 with four participants. These commands spend Sepolia ETH and are distinct from local-only `npm run verify`.
+`node scripts/deploy-sepolia.mjs` deploys/resumes the assessment contracts using the local `.env` (`PRIVATE_KEY` or `DEPLOYER_PRIVATE_KEY`). Preserve its checkpoints to avoid an unintended new deployment. `node scripts/check-sepolia.mjs` resumes real testnet validation and prepares round 2 with four participants; it is not a generic tool for filling whichever round is current. These commands spend Sepolia ETH and are distinct from local-only `npm run verify`.

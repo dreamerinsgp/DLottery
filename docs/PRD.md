@@ -1,5 +1,9 @@
 # DLottery Product Requirements Document
 
+[English](PRD.md) | [简体中文](PRD.zh-CN.md) | [Documentation](README.md)
+
+This is the supplied assessment requirement. The Chinese version is a reference translation. Implementation choices that resolve ambiguities are documented in [architecture.md](architecture.md).
+
 **Product:** DLottery (Decentralized Lottery)\
 **Document Type:** Product Requirements Document (PRD)\
 **Scope:** MVP
@@ -21,20 +25,20 @@ The product consists of:
 
 ### 1.2 Core Business Rules
 
-| Item | Requirement |
-|---|---|
-| Payment Token | USD8 |
-| Ticket Price | 10 USD8 |
-| Maximum Participants | 5 per draw |
-| Ticket Numbers | 1–10 |
-| Tickets per Wallet | 1 per draw |
-| Draw Duration | 24 hours |
-| Minimum Participants | Configurable, e.g. 2 |
-| Draw Trigger | 5 participants or 24-hour timeout |
-| Insufficient Participants | Draw cancelled and refunds enabled |
-| Winner | Participant whose ticket matches the lucky number |
-| No Winner | Prize pool rolls over to the next draw |
-| DAO Fee | 5% of winner net profit |
+| Item                      | Requirement                                       |
+| ------------------------- | ------------------------------------------------- |
+| Payment Token             | USD8                                              |
+| Ticket Price              | 10 USD8                                           |
+| Maximum Participants      | 5 per draw                                        |
+| Ticket Numbers            | 1–10                                              |
+| Tickets per Wallet        | 1 per draw                                        |
+| Draw Duration             | 24 hours                                          |
+| Minimum Participants      | Configurable, e.g. 2                              |
+| Draw Trigger              | 5 participants or 24-hour timeout                 |
+| Insufficient Participants | Draw cancelled and refunds enabled                |
+| Winner                    | Participant whose ticket matches the lucky number |
+| No Winner                 | Prize pool rolls over to the next draw            |
+| DAO Fee                   | 5% of winner net profit                           |
 
 ### 1.3 Overall Business Flow
 

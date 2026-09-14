@@ -1,0 +1,298 @@
+{
+  "note": "Dated read-only observations / 带时间的只读观察记录；不是实时状态。",
+  "current": {
+    "url": "https://frontend-production-216bb.up.railway.app/api/v1/draws/current",
+    "status": 200,
+    "checkedAt": "2026-09-14T09:11:11.885Z",
+    "response": {
+      "chainId": "11155111",
+      "chainTime": 1789377024,
+      "draw": {
+        "id": "3",
+        "status": "ACTIVE",
+        "startTime": 1789375692,
+        "deadline": 1789462092,
+        "finalizedAt": null,
+        "ticketPrice": "1000000000",
+        "minimumParticipants": 2,
+        "participantCount": 0,
+        "luckyNumber": null,
+        "winner": null,
+        "pool": "10000000000",
+        "inheritedRollover": "10000000000",
+        "rollover": "0",
+        "daoFee": "0",
+        "winnerPrize": "0",
+        "prizeClaimed": false,
+        "daoFeePaid": "0",
+        "requestId": null,
+        "tickets": [
+          {
+            "number": 1,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 2,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 3,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 4,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 5,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 6,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 7,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 8,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 9,
+            "wallet": null,
+            "refunded": false
+          },
+          {
+            "number": 10,
+            "wallet": null,
+            "refunded": false
+          }
+        ],
+        "remainingSeconds": 85068,
+        "canPerformDraw": false
+      },
+      "indexedBlock": 11701933,
+      "indexedBlockHash": "0xe03a4f3f1867d154ce0b462d380f90d16dde9243b0eb1288d6960d45b82162c9",
+      "lotteryAddress": "0x670a8c7d4844d23960fff8f3841a47aad559dc7d",
+      "observedHead": 11701936,
+      "sync": {
+        "observedHead": 11701936,
+        "safeHead": 11701933,
+        "indexedBlock": 11701933,
+        "recovering": false,
+        "synced": true,
+        "lastSuccess": "2026-09-14T09:11:09.020713391Z",
+        "failures": 0,
+        "reorgs": 0
+      },
+      "synced": true,
+      "tokenAddress": "0x5a3580ac7b927554aa5ff38b61c91a9078ee496e",
+      "tokenDecimals": 8
+    }
+  },
+  "history": {
+    "url": "https://frontend-production-216bb.up.railway.app/api/v1/draws/history",
+    "status": 200,
+    "checkedAt": "2026-09-14T09:11:11.874Z",
+    "response": {
+      "chainId": "11155111",
+      "chainTime": 1789377024,
+      "draws": [
+        {
+          "id": "2",
+          "status": "NO_WINNER",
+          "startTime": 1789374060,
+          "deadline": 1789460460,
+          "finalizedAt": 1789375656,
+          "ticketPrice": "1000000000",
+          "minimumParticipants": 2,
+          "participantCount": 5,
+          "luckyNumber": 9,
+          "winner": null,
+          "pool": "10000000000",
+          "inheritedRollover": "5000000000",
+          "rollover": "10000000000",
+          "daoFee": "0",
+          "winnerPrize": "0",
+          "prizeClaimed": false,
+          "daoFeePaid": "0",
+          "requestId": "110729537241528932945632046348814142725774914478602181175354613444973039575312",
+          "tickets": [
+            {
+              "number": 1,
+              "wallet": "0x63d50331c568ce20eeca55fc5aa3e33c0bec62fb",
+              "refunded": false
+            },
+            {
+              "number": 2,
+              "wallet": "0xd74c2d80e138f2b96d00a3ac7d1dce6ba1018c57",
+              "refunded": false
+            },
+            {
+              "number": 3,
+              "wallet": "0xea01b60261cc7456e4aa694ffb9e9204be53712b",
+              "refunded": false
+            },
+            {
+              "number": 4,
+              "wallet": "0xcc5b557a7b6c91b668dc045a5c62a7dbdbf479d0",
+              "refunded": false
+            },
+            {
+              "number": 5,
+              "wallet": "0x409df8977e7d364736ab41fe29ff7799045d9525",
+              "refunded": false
+            },
+            {
+              "number": 6,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 7,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 8,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 9,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 10,
+              "wallet": null,
+              "refunded": false
+            }
+          ],
+          "remainingSeconds": 0,
+          "canPerformDraw": false
+        },
+        {
+          "id": "1",
+          "status": "NO_WINNER",
+          "startTime": 1789372956,
+          "deadline": 1789459356,
+          "finalizedAt": 1789374036,
+          "ticketPrice": "1000000000",
+          "minimumParticipants": 2,
+          "participantCount": 5,
+          "luckyNumber": 9,
+          "winner": null,
+          "pool": "5000000000",
+          "inheritedRollover": "0",
+          "rollover": "5000000000",
+          "daoFee": "0",
+          "winnerPrize": "0",
+          "prizeClaimed": false,
+          "daoFeePaid": "0",
+          "requestId": "108016513560524766867800421395171074107465375424444920290463200709563722667533",
+          "tickets": [
+            {
+              "number": 1,
+              "wallet": "0x63d50331c568ce20eeca55fc5aa3e33c0bec62fb",
+              "refunded": false
+            },
+            {
+              "number": 2,
+              "wallet": "0xcc5b557a7b6c91b668dc045a5c62a7dbdbf479d0",
+              "refunded": false
+            },
+            {
+              "number": 3,
+              "wallet": "0x137ccd669494d324af7901c2c48491e01655c2a3",
+              "refunded": false
+            },
+            {
+              "number": 4,
+              "wallet": "0xd74c2d80e138f2b96d00a3ac7d1dce6ba1018c57",
+              "refunded": false
+            },
+            {
+              "number": 5,
+              "wallet": "0xea01b60261cc7456e4aa694ffb9e9204be53712b",
+              "refunded": false
+            },
+            {
+              "number": 6,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 7,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 8,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 9,
+              "wallet": null,
+              "refunded": false
+            },
+            {
+              "number": 10,
+              "wallet": null,
+              "refunded": false
+            }
+          ],
+          "remainingSeconds": 0,
+          "canPerformDraw": false
+        }
+      ],
+      "indexedBlock": 11701933,
+      "indexedBlockHash": "0xe03a4f3f1867d154ce0b462d380f90d16dde9243b0eb1288d6960d45b82162c9",
+      "lotteryAddress": "0x670a8c7d4844d23960fff8f3841a47aad559dc7d",
+      "nextCursor": null,
+      "observedHead": 11701936,
+      "sync": {
+        "observedHead": 11701936,
+        "safeHead": 11701933,
+        "indexedBlock": 11701933,
+        "recovering": false,
+        "synced": true,
+        "lastSuccess": "2026-09-14T09:11:09.020713391Z",
+        "failures": 0,
+        "reorgs": 0
+      },
+      "synced": true,
+      "tokenAddress": "0x5a3580ac7b927554aa5ff38b61c91a9078ee496e",
+      "tokenDecimals": 8
+    }
+  },
+  "readiness": {
+    "url": "https://backend-production-7bb6.up.railway.app/readyz",
+    "status": 200,
+    "checkedAt": "2026-09-14T09:11:12.932Z",
+    "response": {
+      "ready": true,
+      "sync": {
+        "observedHead": 11701936,
+        "safeHead": 11701933,
+        "indexedBlock": 11701933,
+        "recovering": false,
+        "synced": true,
+        "lastSuccess": "2026-09-14T09:11:09.020713391Z",
+        "failures": 0,
+        "reorgs": 0
+      }
+    }
+  }
+}
